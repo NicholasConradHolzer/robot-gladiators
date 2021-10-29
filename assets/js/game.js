@@ -1,3 +1,5 @@
+/*Characters and Statistics Establish Code*/
+
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
@@ -15,6 +17,7 @@ console.log(enemyNames[0]);
 console.log(enemyNames[3]);
 
 
+/*First Actions: Fight and Skip*/
 var fight = function(enemyName) {
   while (playerHealth > 0 && enemyHealth > 0) {
 
@@ -53,6 +56,8 @@ var fight = function(enemyName) {
   }
 };
 
+
+/*Battling Duration*/
 for(var i = 0; i < enemyNames.length; i++) {
   if (playerHealth > 0) {
     window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
