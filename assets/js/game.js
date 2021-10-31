@@ -5,8 +5,17 @@ var randomNumber = function(min, max) {
   return value;
 };
 
+var getPlayerName = function() {
+  var name = "";
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+  console.log("Your robot's name is " + name);
+  return name;
+};
+
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 15,
   money: 10,
@@ -38,6 +47,7 @@ var playerInfo = {
 };
 console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
 
+
 var enemyInfo = [
   {
     name: "Roborto",
@@ -55,11 +65,11 @@ var enemyInfo = [
 
 // var enemy.health = Math.floor(Math.random() * 21) + 40;
 
-console.log(enemy.names);
-console.log(enemy.names.length);
-console.log(enemy.names[0]);
-console.log(enemy.names[3]);
-
+// console.log(enemy.names);
+// console.log(enemy.names.length);
+// console.log(enemy.names[0]);
+// console.log(enemy.names[3]);
+/*Characters and Statistics Global-Establish Code*/
 
 
 
@@ -106,6 +116,7 @@ var fight = function(enemy) {
     }
   }
 };
+/*First Actions: Fight and Skip*/
 
 
 /*Battling Duration*/
@@ -131,9 +142,10 @@ if (playerInfo.health > 0) {
   }
   endGame();
 };
+/*Battling Duration*/
 
 
-
+/*Endgame Function*/
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
   if (playerInfo.health > 0) {
@@ -151,6 +163,7 @@ var endGame = function() {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
   }
 };
+/*Endgame Function*/
 
 
 /*Shop Function*/
@@ -177,6 +190,7 @@ var shop = function() {
       break;
   }
 };
+/*Shop Function*/
 
 
 startGame();
