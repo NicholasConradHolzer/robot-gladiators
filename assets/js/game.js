@@ -62,33 +62,39 @@ var enemyInfo = [
     attack: (11,15)
   }
 ];
-
-// var enemy.health = Math.floor(Math.random() * 21) + 40;
-
-// console.log(enemy.names);
-// console.log(enemy.names.length);
-// console.log(enemy.names[0]);
-// console.log(enemy.names[3]);
 /*Characters and Statistics Global-Establish Code*/
 
 
 
-
 /*First Actions: Fight and Skip*/
+var fightOrSkip = function() {
+  var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+  if (promptFight === "" || promptFight === null) {
+    window.alert("You need to provide a valid answer! Please try again.");
+    return fightOrSkip();
+  }
+  promptFight = promptFight.toLowerCase();
+  if(promptFight)
+  if (promptFight === "skip") {
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+    if (confirmSkip) {
+      window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+      playerInfo.money = Math.max(0, playerInfo.money - 10);
+      return true;
+    } 
+  }
+  return false;
+};
+/*First Actions: Fight and Skip*/
+
+
+/*Fight*/
 var fight = function(enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
 
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-
-    if (promptFight === "skip" || promptFight === "SKIP") {
-      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-      if (confirmSkip) {
-        window.alert(playerInfo.name + " has decided to skip this fight.  Goodbye!");
-        playerInfo.money = playerInfo.money - 10;
-        console.log("playerInfo.money", playerInfo.money);
-        break;
-      }
-    }
+    if (fightOrSkip()) {
+      break;
+    } 
 
     var damage1 = randomNumber(playerInfo.attack - 3, playerInfo.attack);
     enemy.health = Math.max(0, enemy.health - damage1);
@@ -116,7 +122,7 @@ var fight = function(enemy) {
     }
   }
 };
-/*First Actions: Fight and Skip*/
+/*Fight*/
 
 
 /*Battling Duration*/
