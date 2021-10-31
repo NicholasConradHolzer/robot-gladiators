@@ -5,66 +5,6 @@ var randomNumber = function(min, max) {
   return value;
 };
 
-var getPlayerName = function() {
-  var name = "";
-  while (name === "" || name === null) {
-    name = prompt("What is your robot's name?");
-  }
-  console.log("Your robot's name is " + name);
-  return name;
-};
-
-var playerInfo = {
-  name: getPlayerName(),
-  health: 100,
-  attack: 15,
-  money: 10,
-  reset: function() {
-    this.health = 100;
-    this.money = 10;
-    this.attack = 15;
-  },
-  refillHealth: function() {
-    if (this.money >= 7) {
-      window.alert("Refilling player's health by 20 for 7 dollars.");
-      this.health += 20;
-      this.money -= 7;
-    }
-    else {
-      window.alert("You don't have enough money!");
-    }
-  },
-  upgradeAttck: function() {
-    if (this.money >= 7) {
-      window.alert("Upgrading player's attack by 6 for 7 dollars.");
-      this.attack += 6;
-      this.money -= 7;
-    }
-    else {
-      window.alert("You don't have enough money!");
-    }
-  }
-};
-console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
-
-
-var enemyInfo = [
-  {
-    name: "Roborto",
-    attack: randomNumber(10,14)
-  },
-  {
-    name: "Amy Android",
-    attack: randomNumber(10,15)
-  },
-  {
-    name: "Robo Trumble",
-    attack: (11,15)
-  }
-];
-/*Characters and Statistics Global-Establish Code*/
-
-
 
 /*First Actions: Fight and Skip*/
 var fightOrSkip = function() {
@@ -74,7 +14,6 @@ var fightOrSkip = function() {
     return fightOrSkip();
   }
   promptFight = promptFight.toLowerCase();
-  if(promptFight)
   if (promptFight === "skip") {
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
     if (confirmSkip) {
@@ -86,6 +25,7 @@ var fightOrSkip = function() {
   return false;
 };
 /*First Actions: Fight and Skip*/
+
 
 
 /*Fight*/
@@ -136,8 +76,9 @@ if (playerInfo.health > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
       var pickedEnemyObj = enemyInfo[i];
       pickedEnemyObj.health = randomNumber(40, 60);
+      console.log(pickedEnemyObj);
       fight(pickedEnemyObj);
-  if (playerInfo.health > 0 && i < enemy.names.length - 1) {
+  if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
       var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
     if (storeConfirm) {
       shop();
@@ -158,7 +99,17 @@ if (playerInfo.health > 0) {
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
   if (playerInfo.health > 0) {
-    window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("Great job, you've survived the game!");
+    var highScore = localStorage.getItem("highscore");
+      highScore = highScore || 0;
+      if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+        alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+      } 
+      else {
+        alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
+      }
   } 
   else {
     window.alert("You've lost your robot in battle.");
@@ -199,5 +150,64 @@ var shop = function() {
 };
 /*Shop Function*/
 
+
+var getPlayerName = function() {
+  var name = "";
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+  console.log("Your robot's name is " + name);
+  return name;
+};
+
+var playerInfo = {
+  name: getPlayerName(),
+  health: 100,
+  attack: 15,
+  money: 10,
+  reset: function() {
+    this.health = 100;
+    this.money = 10;
+    this.attack = 15;
+  },
+  refillHealth: function() {
+    if (this.money >= 7) {
+      window.alert("Refilling player's health by 20 for 7 dollars.");
+      this.health += 20;
+      this.money -= 7;
+    }
+    else {
+      window.alert("You don't have enough money!");
+    }
+  },
+  upgradeAttck: function() {
+    if (this.money >= 7) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
+      this.attack += 6;
+      this.money -= 7;
+    }
+    else {
+      window.alert("You don't have enough money!");
+    }
+  }
+};
+
+
+
+var enemyInfo = [
+  {
+    name: "Roborto",
+    attack: randomNumber(10,14)
+  },
+  {
+    name: "Amy Android",
+    attack: randomNumber(10,15)
+  },
+  {
+    name: "Robo Trumble",
+    attack: (11,15)
+  }
+];
+/*Characters and Statistics Global-Establish Code*/
 
 startGame();
